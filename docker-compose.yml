@@ -1,0 +1,35 @@
+version: '3'
+services:
+  app:
+    build:
+      context: docker/images/php/
+    container_name: app
+    depends_on:
+      - "db"
+    volumes:
+      - .:/var/www/project
+  web:
+    container_name: web-weather
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docker/hosts:/etc/nginx/conf.d
+      - .:/var/www/project
+      - ./docker/logs:/var/log/nginx
+    depends_on:
+      - "app"
+  db:
+    container_name: db-weather
+    image: postgres:alpine
+    ports:
+      - "54320:5432"
+    environment:
+      - POSTGRES_DB=weather
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./docker/database/init.sql:/docker-entrypoint-initdb.d/1-init.sql
+volumes:
+  db-data:
+    driver: local
