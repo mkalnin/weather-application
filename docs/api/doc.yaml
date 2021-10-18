@@ -1,0 +1,80 @@
+openapi: 3.0.3
+info:
+  title: Weather App
+  description: Weather App
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api/v1
+paths:
+  /weather/by-city-name/{name}:
+    parameters:
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get weather by city name
+      description: If city has space in name, replace it with '_'
+      tags:
+        - weather
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessfulWeatherResult'
+  /history/{numberOfQueries}/{maxDaysAgo}:
+    parameters:
+      - in: path
+        name: numberOfQueries
+        description: Maximum unique queries to display
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: maxDaysAgo
+        description: Maximum days ago for query statistics
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get statistics of weather queries
+      tags:
+        - weather
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessfulWeatherHistoryResult'
+
+components:
+  schemas:
+    WeatherResponse:
+      type: object
+      properties:
+        sourceName:
+          type: string
+        celsiusTemperature:
+          type: integer
+        example:
+          sourceName: weatherForecaster
+          celsiusTemperature: 25
+    WeatherHistoryRequestResponse:
+      type: object
+      properties:
+        query:
+          type: string
+        count:
+          type: integer
+        example:
+          query: Moscow
+          count: 3
+  responses:
+    SuccessfulWeatherResult:
+      description: Successfull weather request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/WeatherResponse'
+    SuccessfulWeatherHistoryResult:
+      description: Successfull weather request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/WeatherHistoryRequestResponse'
