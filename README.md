@@ -22,3 +22,16 @@ If you discover a security vulnerability within Lumen, please send an e-mail to 
 ## License
 
 The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Install project
+####From root project folder execute as it follows
+
+```docker-compose up -d```  
+```docker-compose exec app composer install```  
+```docker-compose exec app php artisan migrate:fresh --seed```
+
+## Adding new weather Apis
+
+Add data for new api to database/seeders/WeatherApiSourcesSeeder and execute
+
+```docker-compose exec app php artisan db:seed --class=WeatherApiSourcesSeeder```

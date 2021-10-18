@@ -47,7 +47,7 @@ class WeatherController extends Controller
             $weather['success'][] = $weatherService->getAverageWeather($weather['success']);
         }
 
-        return \response($weather);
+        return \response()->json($weather);
     }
 
     /**
@@ -66,7 +66,7 @@ class WeatherController extends Controller
             ->limit($numberOfQueries)
             ->get();
 
-        return \response($history);
+        return \response()->json($history);
     }
 
     /**
