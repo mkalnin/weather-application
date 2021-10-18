@@ -34,7 +34,7 @@ class WeatherController extends Controller
     ): Response {
         $weather = [];
         $weatherApiSources = $this->allWeatherApiSources();
-        $locationName = str_ireplace('_', ' ', $name);
+        $locationName = str_ireplace('_', ' ', strtolower($name));
         $historyRequestService->create($locationName);
         foreach ($weatherApiSources as $weatherApiSource) {
             try {
