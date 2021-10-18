@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $api_key
  * @property string|null $api_key_query_param_name
  * @property string|null $city_query_param_name
+ * @property string|null $temperature_path
  * @property bool $is_celsius
  *
  * @package App\Models
