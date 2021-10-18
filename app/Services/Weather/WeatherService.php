@@ -45,8 +45,8 @@ class WeatherService
         $celsiusTemperature = $this->apiSourceDataParser->celsiusTemperature($response->body(), $weatherApiSource);
 
         return new WeatherDto(
-            $weatherApiSource->name,
-            $celsiusTemperature
+            sourceName: $weatherApiSource->name,
+            celsiusTemperature: $celsiusTemperature
         );
     }
 
@@ -66,8 +66,8 @@ class WeatherService
         }
 
         return new WeatherDto(
-            'average',
-            (int) $temperature / count($weatherData)
+            sourceName: 'average',
+            celsiusTemperature: (int) $temperature / count($weatherData)
         );
     }
 }
